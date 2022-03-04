@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch and Graph CSV</title>
+  </head>
+  <body>
+    <script>
+      // Data from: https://data.giss.nasa.gov/gistemp/
+      // Mean from: https://earthobservatory
+
+      getData();
+
+      async function getData() {
+        const response = await fetch('GLB.Ts+dSST.csv');
+        const data = await response.text();
+        console.log(data);
+
+        const table = data.split('\n').slice(1);
+        table.forEach((row) => {
+          const columns = row.split(',');
+
+          const year = columns[0];
+          const tempMarch = columns[3];
+          console.log(year, tempMarch);
+        });
+      }
+    </script>
+  </body>
+</html>
